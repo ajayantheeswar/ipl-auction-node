@@ -1,0 +1,21 @@
+POST http://localhost:3002/admin/signup
+Content-Type: application/json
+
+{
+    "credientials" : {
+        "Name" : "AJAY",
+        "Email" : "ajaysiva2014@gmail.com",
+        "Password" : "Abinaya"
+    }
+}
+###
+
+POST http://localhost:3002/admin/signin
+Content-Type: application/json
+
+{
+    "credientials" : {
+        "Email" : "ajaysiva2014@gmail.com",
+        "Password" : "Abinay"
+    }
+}
