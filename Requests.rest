@@ -1,4 +1,16 @@
-POST http://localhost:3002/admin/signup
+POST http://localhost:3002/user/signup
+Content-Type: application/json
+
+{
+    "credientials" : {
+        "Name" : "a",
+        "Email" : "a",
+        "Password" : "a"
+    }
+}
+###
+
+POST http://localhost:3002/user/signup
 Content-Type: application/json
 
 {
@@ -8,8 +20,8 @@ Content-Type: application/json
         "Password" : "Abinaya"
     }
 }
-###
 
+###
 POST http://localhost:3002/admin/signin
 Content-Type: application/json
 
@@ -17,5 +29,72 @@ Content-Type: application/json
     "credientials" : {
         "Email" : "ajaysiva2014@gmail.com",
         "Password" : "Abinay"
+    }
+}
+
+###
+POST http://localhost:3002/admin/create-auction
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.MQ.dQWCSUjNtJ77-m_0kAR-tNLcBK1QoINSbUHczzvwHjA
+
+{
+    "AuctionDetails" : {
+        "Name" : "Rahul Dravid",
+        "BattingStyle" : "Right-Handed Batsman",
+        "Average" : "80.00",
+        "Role" : "Batsman",
+        "Start" : 1595917546000,
+        "End" : 1596003899000 
+    }
+}
+
+### 
+
+POST http://localhost:3002/user/create-bid
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.MQ.dQWCSUjNtJ77-m_0kAR-tNLcBK1QoINSbUHczzvwHjA
+
+{
+    "BidDetails" : {
+        "Amount" : "123.340",
+        "AuctionId" : "1"
+    }
+}
+
+
+###
+
+POST http://localhost:3002/admin/get-auction
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.MQ.dQWCSUjNtJ77-m_0kAR-tNLcBK1QoINSbUHczzvwHjA
+
+{
+    
+    "AuctionDetails" : {
+        "auctionId" : "2"
+    }
+}
+###
+
+POST http://localhost:3002/admin/get-all-auctions
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.NQ.KSv9GNbd9RKZxJ0vK4F-So8rlzvsj6ISQXxaK34wGvM
+
+{
+    
+    "AuctionDetails" : {
+        "auctionId" : "2"
+    }
+}
+
+###
+POST http://localhost:3002/user/get-auction
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.MQ.dQWCSUjNtJ77-m_0kAR-tNLcBK1QoINSbUHczzvwHjA
+
+{
+    
+    "AuctionDetails" : {
+        "auctionId" : "1"
     }
 }

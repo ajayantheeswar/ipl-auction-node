@@ -24,7 +24,11 @@ exports.signUpAdmin = async (req,res,next) => {
         }});
     }
     catch(error) {
-        res.status(400).json({"Auth Status" : "FAIL" ,"error" : error});
+        if(error.name === 'SequelizeUniqueConstraintError')
+            res.status(400).json({"Auth Status" : "FAIL" ,"error" : "The Account Already Exists"});
+        else{
+            res.status(400).json({"Auth Status" : "FAIL" ,"error" : error});
+        }
     }
 }
 

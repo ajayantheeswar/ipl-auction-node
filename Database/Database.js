@@ -8,4 +8,5 @@ const sequelize = new Sequelize('ojunfuvj', 'ojunfuvj', 'Pyvn5R4UiPD3o-_-rLO6hHB
 
 
 
+
 module.exports = sequelize;

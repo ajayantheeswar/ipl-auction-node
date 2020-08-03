@@ -1,4 +1,4 @@
-const {DataTypesSequelize , DataTypes} = require('sequelize');
+const {DataTypes} = require('sequelize');
 
 const sequelize = require('../Database/Database')
 
@@ -13,8 +13,8 @@ const Auction = sequelize.define('auction', {
   battingStyle : DataTypes.STRING,
   average : DataTypes.STRING,
   role : DataTypes.STRING,
-  start : DataTypes.STRING,
-  end : DataTypes.STRING,
+  start : DataTypes.BIGINT.UNSIGNED,
+  end : DataTypes.BIGINT.UNSIGNED,
   isStarted : {
       type : DataTypes.BOOLEAN,
       defaultValue : false
@@ -27,6 +27,9 @@ const Auction = sequelize.define('auction', {
     type : DataTypes.BOOLEAN,
     defaultValue : false
   },
+  profile : DataTypes.TEXT
 });
+
+
 
 module.exports = Auction;
