@@ -15,7 +15,8 @@ const AdminUser = sequelize.define('adminuser', {
     allowNull : false,
     unique : true
   },
-  password: DataTypes.STRING
+  password: DataTypes.STRING,
+  authType : DataTypes.STRING
 });
 
 module.exports = AdminUser;

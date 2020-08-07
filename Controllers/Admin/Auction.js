@@ -4,22 +4,31 @@ const Bid = require('../../Models/Bid')
 const Profilepath = require('../../Utils/Profile');
 const User = require('../../Models/User');
 
-const fs = require('fs').promises;
+const {bucket} = require('../../firebase');
 
 
 exports.createAuction = async (req,res,next) => {
     try{
-        const { name , battingStyle , average , role ,start , end ,profile} = req.body;
+        const { name , battingStyle , average , role ,start , end} = req.body;
+
+        const profileImageFile = req.file;
+        console.log('file : ');
+        console.log(profileImageFile);
+        console.log('file : ');
+
+        const profileURL = await profileUpload(profileImageFile)
+
         const auctionRequest =  { name ,
             battingStyle ,
             average ,
             role ,
             start,
             end ,
-            profile
+            profile : profileURL
           };
        
        auction = await req.user.createAuction(auctionRequest);
+
        if(!auction){
             res.status(401).json({ error : "Auction Could Not be created"})
             return 
@@ -78,3 +87,35 @@ exports.getAuction = async (req,res,next) => {
 
 }
 
+
+
+
+
+const profileUpload = async (file) => new Promise( (resolve,reject) => {
+
+    try {
+        const {originalname,buffer} = file;
+
+        const blob = bucket.file(originalname);
+        const blobSteam = blob.createWriteStream({
+            resumable : false
+        })
+            .on('finish', () => {
+                
+                const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${blob.name}?alt=media`;   
+                console.log(publicUrl);
+                resolve(publicUrl)
+            })
+
+            .on('error', () => {
+                reject(`Unable to upload image, something went wrong`)
+            })
+
+            .end(buffer);
+        }
+    catch(err) {
+        reject(err.message)
+    }
+    
+
+} ) 

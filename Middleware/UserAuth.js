@@ -4,10 +4,22 @@ const JWT = require('../Utils/JWT');
 exports.userAuth = async (req,res,next) => {
     
     const encodedtoken = req.header('authorization');
+    const type = req.header('type');
     
     try {
-        const userId = await JWT.tokenDecode(encodedtoken);
-        const user = await User.findByPk(userId);
+        let user ;
+        if(type === 'Google') {
+            const payload = await JWT.verifyGoogleToken(encodedtoken);
+            user = await User.findOne({
+                where : {
+                    email : payload.email
+                }
+            });
+        }else{
+            const userId = await JWT.tokenDecode(encodedtoken);
+            user = await User.findByPk(userId);
+        }
+
         if(!user) {
             throw new Error("Auth Fail")
         }
@@ -15,6 +27,6 @@ exports.userAuth = async (req,res,next) => {
         next();
     } 
     catch(err) {
-        res.status(403).json({error : err.message});
+        res.status(403).json({error : err.message + 'po'});
     }
 }
